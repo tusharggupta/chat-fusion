@@ -1,7 +1,5 @@
 # FullStack Discord Clone: Next.js 13, React, Socket.io, Prisma, Tailwind, MySQL & TypeScript.
 
-Credits: [Antonio Erdeljac](https://github.com/AntonioErdeljac)
-
 Features:
 
 - Client form validation and handling using react-hook-form
@@ -62,7 +60,7 @@ NEXT_PUBLIC_LIVEKIT_URL=
 
 ### Setup Prisma
 
-Add MySQL Database (PlanetScale)
+Add MySQL Database (neondb)
 
 ```shell
 npx prisma generate
