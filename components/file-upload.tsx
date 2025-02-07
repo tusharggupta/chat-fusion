@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "@uploadthing/react/styles.css";
 import { FileIcon, X } from "lucide-react";
 import Image from "next/image";
@@ -18,12 +18,30 @@ export function FileUpload({
   value,
   endpoint
 }: FileUploadProps) {
-  const fileType = value?.split(".").pop();
+  const [fileType, setFileType] = useState<string | null>(null);
 
-  if (value && fileType !== "pdf") {
+  useEffect(() => {
+    const fetchFileType = async () => {
+      if (!value) return;
+      try {
+        const response = await fetch(value, { method: "HEAD" });
+        const contentType = response.headers.get("Content-Type");
+        setFileType(contentType);
+      } catch (error) {
+        console.error("Error fetching file type:", error);
+      }
+    };
+
+    fetchFileType();
+  }, [value]);
+
+  const isImage = fileType?.startsWith("image");
+  const isPDF = fileType === "application/pdf";
+
+  if (value && isImage) {
     return (
       <div className="relative h-20 w-20">
-        <Image fill src={value} alt="Upload" className="rounded-full" />
+        <Image fill src={value} alt="Upload" className="rounded-full" unoptimized />
         <button
           onClick={() => onChange("")}
           className="bg-rose-500 text-white p-1 rounded-full absolute top-0 right-0 shadow-sm"
@@ -35,7 +53,7 @@ export function FileUpload({
     );
   }
 
-  if (value && fileType === "pdf") {
+  if (value && isPDF) {
     return (
       <div className="relative flex items-center p-2 mt-2 rounded-md bg-background/10">
         <FileIcon className="h-10 w-10 fill-indigo-200 stroke-indigo-400" />
@@ -45,7 +63,7 @@ export function FileUpload({
           rel="noopener noreferrer"
           className="ml-2 text-sm text-indigo-500 dark:text-indigo-400 hover:underline"
         >
-          {value}
+          View PDF
         </a>
         <button
           onClick={() => onChange("")}
@@ -62,6 +80,7 @@ export function FileUpload({
     <UploadDropzone
       endpoint={endpoint}
       onClientUploadComplete={(res) => {
+        console.log("Uploaded File:", res);
         onChange(res?.[0].url);
       }}
       onUploadError={(error: Error) => console.error(error.message)}
