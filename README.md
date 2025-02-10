@@ -26,11 +26,6 @@ Features:
 
 **Node version 18.x.x**
 
-### Cloning the repository
-
-```shell
-git clone https://github.com/nayak-nirmalya/discord-clone.git
-```
 
 ### Install packages
 
