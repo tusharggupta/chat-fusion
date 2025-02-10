@@ -94,6 +94,7 @@ export function CreateServerModal() {
                           onChange={field.onChange}
                         />
                       </FormControl>
+                      <FormMessage/>
                     </FormItem>
                   )}
                 />
