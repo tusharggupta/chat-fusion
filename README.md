@@ -24,13 +24,11 @@
 - ✅ MySQL database using Planetscale
 - ✅ Authentication with Clerk
 
----
 
 ## 📌 Prerequisites
 
 **Node version 18.x.x**
 
----
 
 ## 📦 Install Packages
 
