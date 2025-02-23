@@ -34,6 +34,7 @@
 
 ```shell
 npm install
+```
 
 
 ### Setup .env file
